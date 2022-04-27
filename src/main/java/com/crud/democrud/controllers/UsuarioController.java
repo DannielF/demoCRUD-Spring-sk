@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @CrossOrigin
 @RestController
@@ -23,6 +24,12 @@ public class UsuarioController {
     @PostMapping()
     public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario) {
         return this.usuarioService.guardarUsuario(usuario);
+    }
+
+    @PutMapping("/update/{id}")
+    public UsuarioModel actualizarUsuario(@RequestBody UsuarioModel usuario, @PathVariable Long id) {
+
+        return this.usuarioService.actualizarUsuario(id, usuario);
     }
 
     @GetMapping(path = "/{id}")

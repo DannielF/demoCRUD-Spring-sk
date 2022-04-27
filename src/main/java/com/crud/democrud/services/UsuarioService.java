@@ -12,7 +12,7 @@ import java.util.Optional;
 public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
-    
+
     public ArrayList<UsuarioModel> obtenerUsuarios(){
         return (ArrayList<UsuarioModel>) usuarioRepository.findAll();
     }
@@ -25,6 +25,10 @@ public class UsuarioService {
         return usuarioRepository.findById(id);
     }
 
+    public UsuarioModel actualizarUsuario(Long id, UsuarioModel usuario) {
+        usuario.setId(id);
+        return usuarioRepository.save(usuario);
+    }
 
     public ArrayList<UsuarioModel>  obtenerPorPrioridad(Integer prioridad) {
         return usuarioRepository.findByPrioridad(prioridad);
