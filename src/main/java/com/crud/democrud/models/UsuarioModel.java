@@ -30,7 +30,7 @@ public class UsuarioModel {
     private Integer prioridad;
 
     @OneToMany(
-            mappedBy = "users",
+            mappedBy = "usuarioModel",
             targetEntity = UsuarioRol.class,
             fetch = FetchType.EAGER
     )

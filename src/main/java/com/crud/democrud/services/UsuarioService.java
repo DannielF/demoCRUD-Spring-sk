@@ -4,6 +4,7 @@ import com.crud.democrud.models.UsuarioModel;
 import com.crud.democrud.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,36 +15,41 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    public ArrayList<UsuarioModel> obtenerUsuarios(){
+    @Transactional(readOnly = true)
+    public List<UsuarioModel> obtenerUsuarios() {
         return (ArrayList<UsuarioModel>) usuarioRepository.findAll();
     }
 
-    public UsuarioModel guardarUsuario(UsuarioModel usuario){
+    @Transactional
+    public UsuarioModel guardarUsuario(UsuarioModel usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    public Optional<UsuarioModel> obtenerPorId(Long id){
+    @Transactional(readOnly = true)
+    public Optional<UsuarioModel> obtenerPorId(Long id) {
         return usuarioRepository.findById(id);
     }
 
+    @Transactional
     public UsuarioModel actualizarUsuario(Long id, UsuarioModel usuario) {
         usuario.setId(id);
         return usuarioRepository.save(usuario);
     }
 
-    public List<UsuarioModel>  obtenerPorPrioridad(Integer prioridad) {
+    @Transactional(readOnly = true)
+    public List<UsuarioModel> obtenerPorPrioridad(Integer prioridad) {
         return usuarioRepository.findByPrioridad(prioridad);
     }
 
+    @Transactional
     public boolean eliminarUsuario(Long id) {
-        try{
+        try {
             usuarioRepository.deleteById(id);
             return true;
-        }catch(Exception err){
+        } catch (Exception err) {
             return false;
         }
     }
 
 
-    
 }
