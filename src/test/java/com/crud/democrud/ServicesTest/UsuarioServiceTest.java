@@ -41,7 +41,7 @@ public class UsuarioServiceTest {
 
     @Test
     public void testGetByPriority() {
-        Integer priority = 1;
+        Integer priority = 100;
         List<UsuarioModel> usuarioModelPriority = usuarioRepository.findByPrioridad(priority);
         assertNotNull(usuarioModelPriority);
     }

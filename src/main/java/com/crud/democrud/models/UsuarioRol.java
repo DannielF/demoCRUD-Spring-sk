@@ -1,9 +1,7 @@
 package com.crud.democrud.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Data
 @Entity
 @Table(name = "usuario_rol")
 public class UsuarioRol {
@@ -27,8 +24,10 @@ public class UsuarioRol {
     private String rol;
 
     @ManyToOne(
+            targetEntity = UsuarioModel.class,
             fetch = FetchType.LAZY,
-            cascade = CascadeType.REMOVE)
+            optional = false
+    )
     @JoinColumn(name = "id_usu")
     @JsonBackReference
     private UsuarioModel usuarioModel;
@@ -36,10 +35,9 @@ public class UsuarioRol {
     public UsuarioRol() {
     }
 
-    public UsuarioRol(Long id, UsuarioModel usuarioModel, String rol) {
-        this.id = id;
-        this.usuarioModel = usuarioModel;
+    public UsuarioRol(String rol, UsuarioModel usuarioModel) {
         this.rol = rol;
+        this.usuarioModel = usuarioModel;
     }
 
     public Long getId() {

@@ -26,7 +26,7 @@ public class UsuarioRolService {
     }
 
     @Transactional(readOnly = true)
-    public List<UsuarioRol> findByRol(String rol) {
+    public Optional<UsuarioRol> findByRol(String rol) {
         return usuarioRolRepository.findByRol(rol);
     }
 
