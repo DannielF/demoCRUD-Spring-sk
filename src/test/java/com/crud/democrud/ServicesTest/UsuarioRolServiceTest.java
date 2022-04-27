@@ -32,7 +32,7 @@ public class UsuarioRolServiceTest {
     @Test
     public void testGetAllUserRoll() {
         List<UsuarioRol> usuarioRolList = (List<UsuarioRol>) usuarioRolRepository.findAll();
-        assertThat(usuarioRolList).size().isGreaterThan(0);
+        assertThat(usuarioRolList).size().isPositive();
     }
 
     @Test
@@ -40,6 +40,13 @@ public class UsuarioRolServiceTest {
         String rol = "Hero";
         Optional<UsuarioRol> usuarioRolFound = usuarioRolRepository.findByRol(rol);
         assertThat(usuarioRolFound.get().getRol()).isEqualTo(rol);
+    }
+
+    @Test
+    public void testFindById() {
+        Long idToFind = 1L;
+        Optional<UsuarioRol> usuarioRolFound = usuarioRolRepository.findById(idToFind);
+        assertThat(usuarioRolFound.get().getId()).isEqualTo(idToFind);
     }
 
 }

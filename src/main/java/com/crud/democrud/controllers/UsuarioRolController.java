@@ -85,7 +85,7 @@ public class UsuarioRolController {
     }
 
     @GetMapping("/query")
-    public ResponseEntity<Response> GetUserRolByRol(@RequestParam(value = "prioridad") String rol) {
+    public ResponseEntity<Response> GetUserRolByRol(@RequestParam(value = "rol") String rol) {
         response.restart();
         try {
             response.data = usuarioRolService.findByRol(rol);
