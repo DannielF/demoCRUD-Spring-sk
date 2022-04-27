@@ -39,4 +39,11 @@ public class UsuarioServiceTest {
         List<UsuarioModel> usuarioModelList=(List<UsuarioModel>) usuarioRepository.findAll();
         assertThat(usuarioModelList).size().isGreaterThan(0);
     }
+
+    @Test
+    public void testGetByPriority() {
+        Integer priority = 1;
+        List<UsuarioModel> usuarioModelPriority = usuarioRepository.findByPrioridad(priority);
+        assertNotNull(usuarioModelPriority);
+    }
 }
