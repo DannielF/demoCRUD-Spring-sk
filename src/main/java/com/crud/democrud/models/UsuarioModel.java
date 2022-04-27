@@ -1,7 +1,21 @@
 package com.crud.democrud.models;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+@Data
 @Entity
 @Table(name = "usuario")
 public class UsuarioModel {
@@ -14,6 +28,14 @@ public class UsuarioModel {
     private String nombre;
     private String email;
     private Integer prioridad;
+
+    @OneToMany(
+            mappedBy = "users",
+            targetEntity = UsuarioRol.class,
+            fetch = FetchType.EAGER
+    )
+    @JsonManagedReference
+    private Set<UsuarioRol> usuarioRols = new LinkedHashSet<>();
 
     public void setPrioridad(Integer prioridad) {
         this.prioridad = prioridad;
