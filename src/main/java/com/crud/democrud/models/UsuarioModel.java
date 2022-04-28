@@ -13,6 +13,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
+/**
+ * Object Relational Mapping - ORM -
+ * Identify attributes of the table with the values inside Java
+ *
+ * @author Daniel Granados
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Entity
 @Table(name = "usuario")
 public class UsuarioModel {
@@ -35,6 +43,7 @@ public class UsuarioModel {
     @JsonManagedReference
     private List<UsuarioRol> usuarioRols;
 
+    // Getters and Setters
     public void setPrioridad(Integer prioridad) {
         this.prioridad = prioridad;
     }
@@ -63,6 +72,11 @@ public class UsuarioModel {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    // Constructors
     public UsuarioModel(String nombre, String email, Integer prioridad) {
         this.nombre = nombre;
         this.email = email;
@@ -72,9 +86,4 @@ public class UsuarioModel {
     public UsuarioModel() {
 
     }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
 }

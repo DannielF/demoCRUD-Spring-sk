@@ -13,6 +13,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
+/**
+ * Test Mock UsuarioRol
+ *
+ * @author Daniel Granados
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @SpringBootTest
 public class UsuarioRolServiceMockTest {
 

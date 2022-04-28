@@ -11,6 +11,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 
+/**
+ *Routes CRUD Usuario
+ *
+ * @author Daniel Granados
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("/usuario")
@@ -21,6 +28,11 @@ public class UsuarioController {
     private final Response response = new Response();
     private HttpStatus httpStatus = HttpStatus.OK;
 
+
+    /**
+     * Route get all usuario
+     * @return List of usuario
+     */
     @GetMapping()
     public ResponseEntity<Response> obtenerUsuarios() {
         response.restart();
@@ -33,6 +45,28 @@ public class UsuarioController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
+    /**
+     * Route Find one usuario
+     * @param id Long
+     * @return Entity
+     */
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Response> obtenerUsuarioPorId(@PathVariable(value = "id") Long id) {
+        response.restart();
+        try {
+            response.data = usuarioService.obtenerPorId(id);
+            httpStatus = HttpStatus.OK;
+        } catch (Exception exception) {
+            getErrorMessageInternal(exception);
+        }
+        return new ResponseEntity<>(response, httpStatus);
+    }
+
+    /**
+     * Route to create a usuario
+     * @param usuario Object
+     * @return Entity
+     */
     @PostMapping()
     public ResponseEntity<Response> guardarUsuario(@RequestBody UsuarioModel usuario) {
         response.restart();
@@ -47,6 +81,12 @@ public class UsuarioController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
+    /**
+     * Route to update a usuario
+     * @param usuario Object
+     * @param id Long
+     * @return Entity
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Response> actualizarUsuario(@RequestBody UsuarioModel usuario, @PathVariable(value = "id") Long id) {
 
@@ -62,18 +102,13 @@ public class UsuarioController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<Response> obtenerUsuarioPorId(@PathVariable(value = "id") Long id) {
-        response.restart();
-        try {
-            response.data = usuarioService.obtenerPorId(id);
-            httpStatus = HttpStatus.OK;
-        } catch (Exception exception) {
-            getErrorMessageInternal(exception);
-        }
-        return new ResponseEntity<>(response, httpStatus);
-    }
 
+
+    /**
+     * Route Find usuarios by priority
+     * @param prioridad Integer
+     * @return Entity
+     */
     @GetMapping("/query")
     public ResponseEntity<Response> obtenerUsuarioPorPrioridad(@RequestParam(value = "prioridad") Integer prioridad) {
         response.restart();
@@ -86,6 +121,11 @@ public class UsuarioController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
+    /**
+     * Route to delete a usuario
+     * @param id Long
+     * @return Entity
+     */
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Response> eliminarPorId(@PathVariable(value = "id") Long id) {
         response.restart();
@@ -106,6 +146,14 @@ public class UsuarioController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
+    /**
+     * Administrador para las excepciones a nivel de SQL con respecto al manejo del acceso a los datos
+     *
+     * @param exception Objeto DataAccessException
+     *
+     * @author Julian Lasso <julian.lasso@sofka.com.co>
+     * @since 1.0.0
+     */
     private void getErrorMessageForResponse(DataAccessException exception) {
         response.error = true;
         if (exception.getRootCause() instanceof SQLException) {
@@ -130,6 +178,14 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Administrador para las excepciones del sistema
+     *
+     * @param exception Objeto Exception
+     *
+     * @author Julian Lasso <julian.lasso@sofka.com.co>
+     * @since 1.0.0
+     */
     private void getErrorMessageInternal(Exception exception) {
         response.error = true;
         response.message = exception.getMessage();

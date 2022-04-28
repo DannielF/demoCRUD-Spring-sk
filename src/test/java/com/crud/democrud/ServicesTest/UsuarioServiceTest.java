@@ -13,6 +13,12 @@ import java.util.Optional;
 import static  org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test Data JPA Usuario
+ *
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @DataJpaTest
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class UsuarioServiceTest {
@@ -36,7 +42,7 @@ public class UsuarioServiceTest {
     @Test
     public void testListarUsuarios(){
         List<UsuarioModel> usuarioModelList=(List<UsuarioModel>) usuarioRepository.findAll();
-        assertThat(usuarioModelList).size().isGreaterThan(0);
+        assertThat(usuarioModelList).size().isPositive();
     }
 
     @Test

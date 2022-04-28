@@ -20,6 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
 
+/**
+ *Routes CRUD UsuarioRol
+ *
+ * @author Daniel Granados
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("/usuario/rol")
@@ -31,6 +38,10 @@ public class UsuarioRolController {
     private final Response response = new Response();
     private HttpStatus httpStatus = HttpStatus.OK;
 
+    /**
+     * Route get all usuarioRol
+     * @return List of usuarioRol
+     */
     @GetMapping()
     public ResponseEntity<Response> getAllUserRols() {
         response.restart();
@@ -43,8 +54,47 @@ public class UsuarioRolController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
+    /**
+     * Route Find one usuarioRol
+     * @param id Long
+     * @return Entity
+     */
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Response> getUserRolById(@PathVariable(value = "id") Long id) {
+        response.restart();
+        try {
+            response.data = usuarioRolService.findById(id);
+            httpStatus = HttpStatus.OK;
+        } catch (Exception exception) {
+            getErrorMessageInternal(exception);
+        }
+        return new ResponseEntity<>(response, httpStatus);
+    }
+
+    /**
+     * Route Find usuarioRol by rol
+     * @param rol String
+     * @return Entity
+     */
+    @GetMapping("/query")
+    public ResponseEntity<Response> getUserRolByRol(@RequestParam(value = "rol") String rol) {
+        response.restart();
+        try {
+            response.data = usuarioRolService.findByRol(rol);
+            httpStatus = HttpStatus.OK;
+        } catch (Exception exception) {
+            getErrorMessageInternal(exception);
+        }
+        return new ResponseEntity<>(response, httpStatus);
+    }
+
+    /**
+     * Route to create a usuarioRol
+     * @param usuarioRol Object
+     * @return Entity
+     */
     @PostMapping()
-    public ResponseEntity<Response> SaveUserRol(@RequestBody UsuarioRol usuarioRol) {
+    public ResponseEntity<Response> saveUserRol(@RequestBody UsuarioRol usuarioRol) {
         response.restart();
         try {
             response.data = usuarioRolService.saveUserRol(usuarioRol);
@@ -57,8 +107,14 @@ public class UsuarioRolController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
+    /**
+     * Route to update a usuarioRol
+     * @param usuarioRol Object
+     * @param id Long
+     * @return Entity
+     */
     @PutMapping("/{id}")
-    public ResponseEntity<Response> UpdateUserRol(@RequestBody UsuarioRol usuarioRol, @PathVariable(value = "id") Long id) {
+    public ResponseEntity<Response> updateUserRol(@RequestBody UsuarioRol usuarioRol, @PathVariable(value = "id") Long id) {
 
         response.restart();
         try {
@@ -72,32 +128,13 @@ public class UsuarioRolController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<Response> GetUserRolById(@PathVariable(value = "id") Long id) {
-        response.restart();
-        try {
-            response.data = usuarioRolService.findById(id);
-            httpStatus = HttpStatus.OK;
-        } catch (Exception exception) {
-            getErrorMessageInternal(exception);
-        }
-        return new ResponseEntity<>(response, httpStatus);
-    }
-
-    @GetMapping("/query")
-    public ResponseEntity<Response> GetUserRolByRol(@RequestParam(value = "rol") String rol) {
-        response.restart();
-        try {
-            response.data = usuarioRolService.findByRol(rol);
-            httpStatus = HttpStatus.OK;
-        } catch (Exception exception) {
-            getErrorMessageInternal(exception);
-        }
-        return new ResponseEntity<>(response, httpStatus);
-    }
-
+    /**
+     * Route to delete a usuarioRol
+     * @param id Long
+     * @return Entity
+     */
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Response> DeleteUserRol(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Response> deleteUserRol(@PathVariable(value = "id") Long id) {
         response.restart();
         try {
             response.data = usuarioRolService.deleteUserRol(id);
@@ -116,7 +153,14 @@ public class UsuarioRolController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
-
+    /**
+     * Administrador para las excepciones a nivel de SQL con respecto al manejo del acceso a los datos
+     *
+     * @param exception Objeto DataAccessException
+     *
+     * @author Julian Lasso <julian.lasso@sofka.com.co>
+     * @since 1.0.0
+     */
     private void getErrorMessageForResponse(DataAccessException exception) {
         response.error = true;
         if (exception.getRootCause() instanceof SQLException) {
@@ -141,6 +185,14 @@ public class UsuarioRolController {
         }
     }
 
+    /**
+     * Administrador para las excepciones del sistema
+     *
+     * @param exception Objeto Exception
+     *
+     * @author Julian Lasso <julian.lasso@sofka.com.co>
+     * @since 1.0.0
+     */
     private void getErrorMessageInternal(Exception exception) {
         response.error = true;
         response.message = exception.getMessage();

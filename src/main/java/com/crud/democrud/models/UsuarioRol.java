@@ -12,6 +12,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Object Relational Mapping - ORM -
+ * Identify attributes of the table with the values inside Java
+ *
+ * @author Daniel Granados
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Entity
 @Table(name = "usuario_rol")
 public class UsuarioRol {
@@ -32,6 +40,7 @@ public class UsuarioRol {
     @JsonBackReference
     private UsuarioModel usuarioModel;
 
+    // Constructors
     public UsuarioRol() {
     }
 
@@ -40,6 +49,7 @@ public class UsuarioRol {
         this.usuarioModel = usuarioModel;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }

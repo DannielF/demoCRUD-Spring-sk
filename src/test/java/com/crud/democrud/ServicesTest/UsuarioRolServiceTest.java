@@ -14,6 +14,12 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Test Data JPA UsuarioRol
+ *
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @DataJpaTest
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class UsuarioRolServiceTest {
