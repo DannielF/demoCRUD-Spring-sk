@@ -13,9 +13,7 @@ spring:
         format_sql: true
 
   datasource:
-    url: jdbc:mysql://localhost/demo_crud_spring?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrival=true
-    username: root
-    password: Dgranado2
+    url: jdbc:mysql://root:mysqlpw@localhost:55000/users
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 logging:
